@@ -5,8 +5,14 @@ The Streamlit component allows you to record voice and return a bytearray
 ## Installation instructions
 
 ```sh
-pip install streamlit-record-btn
+pip install -i https://test.pypi.org/simple/ streamlit-record-btn==1.0.0
 ```
+
+[//]: # (```sh)
+
+[//]: # (pip install streamlit-record-btn)
+
+[//]: # (```)
 
 ## Usage instructions
 
