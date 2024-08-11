@@ -1,5 +1,5 @@
 import {Streamlit, StreamlitComponentBase, withStreamlitConnection} from "streamlit-component-lib";
-import React, {ReactNode, useEffect} from "react";
+import React, {ReactNode} from "react";
 
 
 interface State {
@@ -28,37 +28,10 @@ class MyComponent extends StreamlitComponentBase<State> {
                 chunks.push(event.data);
             };
 
-            // blob
-            // mediaRecorderRef.current.onstop = () => {
-            //     const audioBlob = new Blob(chunks, {type: "audio/webm"});
-            //     setAudioBlob(audioBlob);
-            //     setIsRecording(false);
-            //
-            //     console.log('audioBlob', audioBlob)
-            //     Streamlit.setComponentValue(audioBlob);
-            //     setErrorMessage(null);
-            // };
-
-            // base64_audio
-            // mediaRecorderRef.current.onstop = () => {
-            //     const audioBlob = new Blob(chunks, {type: "audio/webm"});
-            //     setAudioBlob(audioBlob);
-            //     setIsRecording(false);
-            //
-            //     // Convert to base64
-            //     const reader = new FileReader();
-            //     reader.readAsDataURL(audioBlob);
-            //     reader.onloadend = () => {
-            //         const base64data = reader.result as string;
-            //         Streamlit.setComponentValue(base64data);
-            //     };
-            //     setErrorMessage(null);
-            // };
-
-            // // binaryData
             this.state.mediaRecorder!.onstop = () => {
                 const audioBlob = new Blob(chunks, {type: "audio/webm"});
                 this.setState({isRecording: false});
+
                 const reader = new FileReader();
                 reader.readAsArrayBuffer(audioBlob);
                 reader.onloadend = () => {
@@ -106,9 +79,8 @@ class MyComponent extends StreamlitComponentBase<State> {
     }
 
     public render = (): ReactNode => {
-        // Streamlit.setComponentValue(null);
-
         const {theme} = this.props
+        const {use_container_width} = this.props.args
 
         const style: React.CSSProperties = {
             display: "inline-flex",
@@ -120,7 +92,6 @@ class MyComponent extends StreamlitComponentBase<State> {
             margin: 0,
             color: theme?.textColor,
             outline: 0,
-            width: "100%",
         }
 
         if (theme) {
@@ -128,6 +99,10 @@ class MyComponent extends StreamlitComponentBase<State> {
                 theme?.base === "dark" ? (this.state.isRecording ? theme.primaryColor : theme.secondaryBackgroundColor) : theme?.primaryColor
             }`
             style.background = theme?.base === "dark" ? (this.state.isRecording ? theme.primaryColor : theme.secondaryBackgroundColor) : theme?.primaryColor;
+        }
+
+        if (use_container_width) {
+            style.width = "100%"
         }
 
         return (

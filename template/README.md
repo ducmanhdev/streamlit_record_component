@@ -1,11 +1,11 @@
-# streamlit-custom-component
+# streamlit-record-btn
 
-Streamlit component that allows you to do X
+The Streamlit component allows you to record voice and return a bytearray
 
 ## Installation instructions
 
 ```sh
-pip install streamlit-custom-component
+pip install streamlit-record-btn
 ```
 
 ## Usage instructions
@@ -13,9 +13,8 @@ pip install streamlit-custom-component
 ```python
 import streamlit as st
 
-from my_component import my_component
+from record_button import record_button
 
-value = my_component()
-
-st.write(value)
+if binary_audio := record_button():
+    print(binary_audio)
 ```

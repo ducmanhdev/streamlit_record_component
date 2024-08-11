@@ -159,7 +159,7 @@ def check_deps_section(template_package_json, current_package_json, section_name
 
 def cmd_example_check_deps(args):
     """Checks that dependencies of examples match the template"""
-    template_deps = json.loads((THIS_DIRECTORY / "template" / "my_component" / "frontend" / "package.json").read_text())
+    template_deps = json.loads((THIS_DIRECTORY / "template" / "record_button" / "frontend" / "package.json").read_text())
     examples_package_jsons = sorted(next(d.glob("*/frontend/package.json")) for d in EXAMPLE_DIRECTORIES)
     exit_code = 0
     for examples_package_json in examples_package_jsons:
